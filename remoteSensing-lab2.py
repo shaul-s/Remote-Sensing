@@ -8,9 +8,9 @@ except:
     print('Could not open file')
     quit()
 
-data = raw_data.readlines()
+data = raw_data.read()
 
-print(data[0])
+print(data)
 
 
 #if __name__ == "__main__":
