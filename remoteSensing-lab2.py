@@ -20,16 +20,16 @@ for file in fileNames:
 
     for j in range(12, len(data)):
         arg = data[j].split()
-        wavelength.append(arg[0])
-        control_rad.append(arg[1])
-        object_rad.append(arg[2])
-        reflectance.append(arg[3])
+        wavelength.append(float(arg[0]))
+        control_rad.append(float(arg[1]))
+        object_rad.append(float(arg[2]))
+        reflectance.append(float(arg[3]))
 
-    #wavelength = np.array(wavelength); control_rad = np.array(control_rad)
-    #object_rad = np.array(object_rad); reflectance = np.array(reflectance)
+    wavelength = np.array(wavelength); control_rad = np.array(control_rad)
+    object_rad = np.array(object_rad); reflectance = np.array(reflectance)
 
-plt.axis('equal')
-plt.plot(wavelength, object_rad)
+#plt.axis('equal')
+plt.plot(wavelength, object_rad, 'r-')
 plt.show()
 
 
