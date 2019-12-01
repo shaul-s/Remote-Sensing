@@ -1,16 +1,38 @@
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import numpy as np
+import glob
 
 
-try:
-    raw_data = open(r'C:\Users\Saul\OneDrive - Technion\סמסטר 5\חישה\מעבדה 2\הארה אנכית\alon_0000.asc', 'r', encoding='utf8')
-except:
-    print('Could not open file')
-    quit()
+fileNames = glob.glob(r'D:\One Drive - Technion\OneDrive - Technion\סמסטר 5\חישה\מעבדה 2\הארה אנכית\*.asc')
 
-data = raw_data.readlines()
+for file in fileNames:
+    try :
+        raw_data = open(str(file), 'r', encoding='utf8')
+    except :
+        print('Could not open file')
+        quit()
+    data = raw_data.readlines()
 
-print(data[0])
+    wavelength = []
+    control_rad = []
+    object_rad = []
+    reflectance = []
+
+    for j in range(12, len(data)):
+        arg = data[j].split()
+        wavelength.append(arg[0])
+        control_rad.append(arg[1])
+        object_rad.append(arg[2])
+        reflectance.append(arg[3])
+
+    #wavelength = np.array(wavelength); control_rad = np.array(control_rad)
+    #object_rad = np.array(object_rad); reflectance = np.array(reflectance)
+
+plt.axis('equal')
+plt.plot(wavelength, object_rad)
+plt.show()
 
 
-#if __name__ == "__main__":
+
+
+
