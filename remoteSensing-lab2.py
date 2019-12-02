@@ -2,8 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import glob
 
-
-fileNames = glob.glob(r'D:\One Drive - Technion\OneDrive - Technion\סמסטר 5\חישה\מעבדה 2\הארה אנכית\*.asc')
+fileNames = glob.glob(r'vertical_radiance\*.asc')
 
 for file in fileNames:
     try :
