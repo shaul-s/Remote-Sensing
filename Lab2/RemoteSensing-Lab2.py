@@ -1,13 +1,21 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import glob
-import re
 
 
 """
 getting the data from vertical light source
 """
 fileNames = glob.glob(r'vertical_radiance\*.asc')
+
+fig1, ax1 = plt.subplots(figsize=(9, 7), dpi=150, facecolor='w', edgecolor='k')
+ax1.set_ylim(-50, 150)
+ax1.set_title('Average Reflectance for all Objects')
+ax1.grid()
+ax1.set_xlabel('Wavelength[nm]')
+ax1.set_ylabel('Reflectance[%]')
+
+fig2, ax2 = plt.subplots(figsize=(9, 7), dpi=150, facecolor='w', edgecolor='k')
 
 for idx, file in enumerate(fileNames[::3]):
     try:
@@ -42,45 +50,50 @@ for idx, file in enumerate(fileNames[::3]):
     """
     plotting
     """
-    plt.figure(num=None, figsize=(9, 7), dpi=150, facecolor='w', edgecolor='k')
-    plt.ylim(-50, 150)
-    plt.title(file)
-    plt.grid()
-    plt.xlabel('Wavelength[nm]')
-    plt.ylabel('Reflectance[%]')
-    plt.plot(wavelength1, reflectance1, 'r-', label='1')
-    plt.plot(wavelength2, reflectance2, 'g-', label='2')
-    plt.plot(wavelength3, reflectance3, 'b-', label='3')
-    plt.legend()
-    plt.savefig("vertical_spectral_reflectance" + str(idx) + ".png", format="PNG", dpi=150)
-    plt.cla()
+    #plt.figure(num=None, figsize=(9, 7), dpi=150, facecolor='w', edgecolor='k')
+    ax2.set_ylim(-50, 150)
+    ax2.set_title(file)
+    ax2.grid()
+    ax2.set_xlabel('Wavelength[nm]')
+    ax2.set_ylabel('Reflectance[%]')
+    ax2.plot(wavelength1, reflectance1, 'r-', label='1')
+    ax2.plot(wavelength2, reflectance2, 'g-', label='2')
+    ax2.plot(wavelength3, reflectance3, 'b-', label='3')
+    ax2.legend()
+    fig2.savefig("vertical_spectral_reflectance" + str(idx) + ".png", format="PNG", dpi=150)
+    ax2.cla()
 
-    plt.ylim(-50, 150)
-    plt.title('Average Reflectance ' + file)
-    plt.grid()
-    plt.xlabel('Wavelength[nm]')
-    plt.ylabel('Reflectance[%]')
-    plt.plot(wavelength1, reflectance_avg, 'k')
-    plt.savefig("vertical_spectral_reflectance_avg" + str(idx) + ".png", format="PNG", dpi=150)
-    plt.cla()
+    ax2.set_ylim(-50, 150)
+    ax2.set_title('Average Reflectance ' + file)
+    ax2.grid()
+    ax2.set_xlabel('Wavelength[nm]')
+    ax2.set_ylabel('Reflectance[%]')
+    ax2.plot(wavelength1, reflectance_avg, 'k')
+    fig2.savefig("vertical_spectral_reflectance_avg" + str(idx) + ".png", format="PNG", dpi=150)
+    ax2.cla()
 
-    plt.ylim(-50, 150)
-    plt.title('Standard Deviation - Reflectance ' + file)
-    plt.grid()
-    plt.xlabel('Wavelength[nm]')
-    plt.ylabel('Reflectance[%]')
-    plt.plot(wavelength1, reflectance_std, 'k')
-    plt.savefig("vertical_spectral_reflectance_std" + str(idx) + ".png", format="PNG", dpi=150)
-    plt.cla()
+    ax2.set_ylim(-50, 150)
+    ax2.set_title('Standard Deviation - Reflectance ' + file)
+    ax2.grid()
+    ax2.set_xlabel('Wavelength[nm]')
+    ax2.set_ylabel('Reflectance[%]')
+    ax2.plot(wavelength1, reflectance_std, 'k')
+    fig2.savefig("vertical_spectral_reflectance_std" + str(idx) + ".png", format="PNG", dpi=150)
+    ax2.cla()
 
-    plt.ylim(-50, 150)
-    plt.title('(Max Obs - Min Obs) - Reflectance ' + file)
-    plt.grid()
-    plt.xlabel('Wavelength[nm]')
-    plt.ylabel('Reflectance[%]')
-    plt.plot(wavelength1, reflectance_neg, 'k')
-    plt.savefig("vertical_spectral_reflectance_neg" + str(idx) + ".png", format="PNG", dpi=150)
-    plt.cla()
+    ax2.set_ylim(-50, 150)
+    ax2.set_title('(Max Obs - Min Obs) - Reflectance ' + file)
+    ax2.grid()
+    ax2.set_xlabel('Wavelength[nm]')
+    ax2.set_ylabel('Reflectance[%]')
+    ax2.plot(wavelength1, reflectance_neg, 'k')
+    fig2.savefig("vertical_spectral_reflectance_neg" + str(idx) + ".png", format="PNG", dpi=150)
+    ax2.cla()
+
+    ax1.plot(wavelength1, reflectance_avg, c=np.random.rand(3, ), label=file)
+
+ax1.legend()
+fig1.savefig("vertical_spectral_radiance_all.png", format="PNG", dpi=150)
 
 """
 getting the data from 30 degree light source
@@ -94,7 +107,7 @@ ax1.grid()
 ax1.set_xlabel('Wavelength[nm]')
 ax1.set_ylabel('Reflectance[%]')
 
-fig2, ax2 = plt.subplots(figsize=(9, 7), dpi=150, facecolor='w', edgecolor='k')
+#fig2, ax2 = plt.subplots(figsize=(9, 7), dpi=150, facecolor='w', edgecolor='k')
 
 for idx, file in enumerate(fileNames[::3]):
     try:
@@ -168,7 +181,6 @@ for idx, file in enumerate(fileNames[::3]):
     ax2.plot(wavelength1, reflectance_neg, 'k')
     fig2.savefig("30deg_spectral_reflectance_neg" + str(idx) + ".png", format="PNG", dpi=150)
     ax2.cla()
-
 
     ax1.plot(wavelength1, reflectance_avg, c=np.random.rand(3,), label=file)
 
